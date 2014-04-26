@@ -36,7 +36,7 @@ module.exports = function (grunt) {
                 tasks: ['bowerInstall']
             },
             coffee: {
-                files: ['<%= config.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}'],
+                files: ['<%= config.app %>/{elements,scripts}/{,*/}*.{coffee,litcoffee,coffee.md}'],
                 tasks: ['coffee:dist'],
                 options: {
                     livereload: true
@@ -46,7 +46,7 @@ module.exports = function (grunt) {
                 files: ['Gruntfile.js']
             },
             styles: {
-                files: ['<%= config.app %>/styles/{,*/}*.css'],
+                files: ['<%= config.app %>/{elements,styles}/{,*/}*.css'],
                 tasks: [],
                 options: {
                     livereload: true
@@ -57,9 +57,11 @@ module.exports = function (grunt) {
                     livereload: '<%= connect.options.livereload %>'
                 },
                 files: [
+                    '.tmp/elements/{,*/}*.css',
                     '.tmp/styles/{,*/}*.css',
+                    '.tmp/elements/{,*/}*.js',
                     '.tmp/scripts/{,*/}*.js',
-                    '<%= config.app %>/*.html',
+                    '<%= config.app %>/{,*/}*.html',
                     '<%= config.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                     '<%= config.app %>/manifest.json',
                     '<%= config.app %>/_locales/{,*/}*.json'
@@ -129,8 +131,8 @@ module.exports = function (grunt) {
             },
             all: [
                 'Gruntfile.js',
-                '<%= config.app %>/scripts/{,*/}*.js',
-                '!<%= config.app %>/scripts/vendor/*',
+                '<%= config.app %>/{elements,scripts}/{,*/}*.js',
+                '!<%= config.app %>/{elements,scripts}/vendor/*',
                 'test/spec/{,*/}*.js'
             ]
         },
@@ -147,18 +149,18 @@ module.exports = function (grunt) {
             server: {
                 files: [{
                     expand: true,
-                    cwd: '<%= config.app %>/scripts',
-                    src: '{,*/}*.{coffee,litcoffee,coffee.md}',
-                    dest: '.tmp/scripts',
+                    cwd: '<%= config.app %>',
+                    src: '{elements,scripts}/{,*/}*.{coffee,litcoffee,coffee.md}',
+                    dest: '.tmp/',
                     ext: '.js'
                 }]
             },
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%= config.app %>/scripts',
-                    src: '{,*/}*.{coffee,litcoffee,coffee.md}',
-                    dest: '<%= config.app %>/scripts',
+                    cwd: '<%= config.app %>',
+                    src: '{elements,scripts}/{,*/}*.{coffee,litcoffee,coffee.md}',
+                    dest: '<%= config.app %>/',
                     ext: '.js'
                 }]
             }
@@ -167,16 +169,14 @@ module.exports = function (grunt) {
         // Compiles Sass to CSS and generates necessary files if requested
         compass: {
             options: {
-                sassDir: '<%= config.app %>/styles',
-                cssDir: '<%= config.dist %>/styles',
+                sassDir: '<%= config.app %>/elements',
+                cssDir: '<%= config.dist %>/elements',
                 generatedImagesDir: '<%= config.dist %>/images/generated',
                 imagesDir: '<%= config.app %>/images',
-                javascriptsDir: '<%= config.app %>/scripts',
-                fontsDir: '<%= config.app %>/styles/fonts',
+                javascriptsDir: '<%= config.app %>/elements',
+                fontsDir: '<%= config.app %>/elements',
                 importPath: '<%= config.app %>/bower_components',
-                httpImagesPath: '/images',
                 httpGeneratedImagesPath: '/images/generated',
-                httpFontsPath: '/styles/fonts',
                 relativeAssets: false,
                 assetCacheBuster: false
             },
@@ -189,7 +189,7 @@ module.exports = function (grunt) {
             },
             chrome: {
                 options: {
-                    cssDir: '<%= config.app %>/styles',
+                    cssDir: '<%= config.app %>/elements',
                     generatedImagesDir: '<%= config.app %>/images/generated',
                     debugInfo: true
                 }
@@ -201,11 +201,11 @@ module.exports = function (grunt) {
         // Automatically inject Bower components into the HTML file
         bowerInstall: {
             app: {
-                src: ['<%= config.app %>/index.html'],
-                ignorePath: '<%= config.app %>/'
+                src: ['<%= config.app %>/index.html']
+//                ignorePath: '<%= config.app %>/'
             },
             sass: {
-                src: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+                src: ['<%= config.app %>/elements/{,*/}*.{scss,sass}'],
                 ignorePath: '<%= config.app %>/bower_components/'
             }
         },
@@ -315,6 +315,7 @@ module.exports = function (grunt) {
                         '{,*/}*.html',
                         'styles/fonts/{,*/}*.*',
                         '_locales/{,*/}*.json',
+                        'elements/*'
                     ]
                 }]
             },
@@ -391,7 +392,7 @@ module.exports = function (grunt) {
         
         // Configure compass task for debug[server:chrome] task
         watch.compass = {
-            files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+            files: ['<%= config.app %>/{styles,elements}/{,*/}*.{scss,sass}'],
             tasks: ['compass:' + platform]
         };
 
