@@ -393,7 +393,7 @@ module.exports = function (grunt) {
         watch.compass = {
             files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
             tasks: ['compass:' + platform]
-        }
+        };
 
         // Configure style task for debug:server task
         if (platform === 'server') {
