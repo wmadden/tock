@@ -6,7 +6,8 @@
     "bootstrap-sass-official": "~3.1.1+2",
     "jquery": "~2.1.0",
     "polymer-elements": "PolymerLabs/polymer-elements#~0.2.3",
-    "polymer-ui-elements": "PolymerLabs/polymer-ui-elements#~0.2.3"
+    "polymer-ui-elements": "PolymerLabs/polymer-ui-elements#~0.2.3",
+    "underscore": "~1.6.0"
   },
   "devDependencies": {}
 }
