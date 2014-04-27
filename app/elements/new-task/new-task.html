@@ -4,19 +4,20 @@
   <template>
     <link href="new-task.css" rel="stylesheet" type="text/css">
 
-    New task:
     <form>
       <div id="tock-task-editor" class="form-inline">
         <div class="form-group">
           <label class="sr-only" for="descriptionInput">What are you working on?</label>
-          <input type="text" class="form-control input-lg" id="descriptionInput" placeholder="What are you working on?">
+          <input type="text" class="form-control input-lg" id="descriptionInput"
+                 placeholder="What are you working on?">
         </div>
         <div class="form-group">
           <label class="sr-only" for="estimateInput">Estimate</label>
           <input type="number" class="form-control input-lg" id="estimateInput" placeholder="Est.">
         </div>
       </div>
-      <button on-click="{{ startTask }}">Start</button>
+      <br/>
+      <button class="btn btn-default btn-block btn-primary" on-click="{{ startTask }}">Start</button>
     </form>
   </template>
 

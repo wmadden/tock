@@ -14,11 +14,11 @@
 
     <template if="{{ task.pomodoroStarted }}">
       <tock-clockface time="{{ task.timeRemaining }}"></tock-clockface>
-      <button on-click="{{ stopPomodoro }}">Stop pomodoro</button>
+      <button class="btn btn-default" on-click="{{ stopPomodoro }}">Stop pomodoro</button>
     </template>
     <template if="{{ !task.pomodoroStarted }}">
-      <button on-click="{{ newPomodoro }}">Start new pomodoro</button>
-      <button on-click="{{ finishTask }}">Done!</button>
+      <button class="btn btn-default" on-click="{{ newPomodoro }}">Start new pomodoro</button>
+      <button class="btn btn-default" on-click="{{ finishTask }}">Done!</button>
     </template>
   </template>
 
