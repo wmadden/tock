@@ -1,6 +1,20 @@
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 
-$padding: 20px;
+html, body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
 body {
-    padding: $padding;
+  position: relative;
+}
+
+#tock-app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
