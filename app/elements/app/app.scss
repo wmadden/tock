@@ -1,11 +1,11 @@
 #tock-app {
-  background-color: #27292e;
-  color: #e3e9ee;
+//  color: #e3e9ee;
+  width: 500px;
+  margin: 0 auto;
+  padding-top: 30px;
 }
 
 #view-switcher {
-  width: 100%;
-  height: 100%;
 }
 
 button {
@@ -14,4 +14,12 @@ button {
 
 polymer-ui-pages {
   display: block;
+
+  & > .polymer-selected {
+    position: relative;
+  }
+}
+
+#task-list {
+  margin-top: 18px;
 }
