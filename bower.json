@@ -4,7 +4,9 @@
   "dependencies": {
     "polymer": "Polymer/polymer#~0.2.3",
     "bootstrap-sass-official": "~3.1.1+2",
-    "jquery": "~2.1.0"
+    "jquery": "~2.1.0",
+    "polymer-elements": "PolymerLabs/polymer-elements#~0.2.3",
+    "polymer-ui-elements": "PolymerLabs/polymer-ui-elements#~0.2.3"
   },
   "devDependencies": {}
 }
