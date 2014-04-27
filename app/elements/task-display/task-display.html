@@ -5,7 +5,22 @@
   <template>
     <link href="task-display.css" rel="stylesheet" type="text/css">
 
-    <tock-clockface time="{{ time }}"></tock-clockface>
+    <div class="description">
+      Description: {{ task.description }}
+    </div>
+    <div class="description">
+      Pomodoro: {{ task.totalPomodoros }} / {{ task.estimatedPomodoros }}
+    </div>
+
+    <template if="{{ task.pomodoroStarted }}">
+      <tock-clockface time="{{ task.timeRemaining }}"></tock-clockface>
+      <button>Stop</button>
+      <button>Done!</button>
+    </template>
+    <template if="{{ !task.pomodoroStarted }}">
+      <button>Start new pomodoro</button>
+      <button>Finished!</button>
+    </template>
   </template>
 
   <script src="task-display.js"></script>

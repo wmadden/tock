@@ -1,31 +1,30 @@
+NEW_TASK_VIEW = 'newTask'
+TASK_DISPLAY_VIEW = 'taskDisplay'
+
 Polymer "tock-app",
   ready: ->
-    @resetTimer()
+    @pastTasks = []
+    @makeNewTask()
 
-  attached: ->
+  makeNewTask: ->
+    @selectedView = NEW_TASK_VIEW
+    @pastTasks.push @currentTask if @currentTask
+    @currentTask = null
 
-  detached: ->
-    clearInterval @timerInterval if @timerInterval
+  startTask: (task) ->
+    @currentTask = task
+    task.startPomodoro()
+    @selectedView = TASK_DISPLAY_VIEW
 
-  startTimer: ->
-    @lastTick = Date.now()
-    @timerState = 'started'
-    @timerInterval = setInterval( =>
-      @time += Date.now() - @lastTick
-      @lastTick = Date.now()
-    , 100)
+  finishTask: (task) ->
+    @pastTasks.push task
+    @currentTask = null
+    @selectedView = NEW_TASK_VIEW
 
-  stopTimer: ->
-    clearInterval @timerInterval
-    @timerInterval = null
-    @timerState = 'stopped'
+  # -- Event listeners --
 
-  toggleTimer: ->
-    if @timerState == 'started'
-      @stopTimer()
-    else
-      @startTimer()
+  newTask_onCreate: (event, detail) ->
+    @startTask(detail.task)
 
-  resetTimer: ->
-    @stopTimer()
-    @time = 0
+  currentTask_onFinish: (event, detail) ->
+    @finishTask(detail.task)

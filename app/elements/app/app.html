@@ -1,22 +1,23 @@
-<link rel="import" href="/elements/clockface/clockface.html">
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/polymer-ui-pages/polymer-ui-pages.html">
+<link rel="import" href="/elements/new-task/new-task.html">
+<link rel="import" href="/elements/task-display/task-display.html">
 
 <polymer-element name="tock-app">
   <template>
     <link href="app.css" rel="stylesheet" type="text/css">
 
     <div id="tock-app">
-      <tock-clockface time="{{ time }}"></tock-clockface>
-      <button id="startButton" on-click="{{ toggleTimer }}">
-        Start/Stop
-      </button>
+      <polymer-ui-pages id="view-switcher" valueattr="id" selected="{{ selectedView }}">
+        <tock-task-display id="taskDisplay" task="{{ currentTask }}">
+        </tock-task-display>
 
-      <button id="resetButton" on-click="{{ resetTimer }}">
-        Reset
-      </button>
-
-      {{ abc }}
+        <tock-new-task id="newTask" on-start="{{ newTask_onCreate }}">
+        </tock-new-task>
+      </polymer-ui-pages>
     </div>
   </template>
 
+  <script src="/scripts/tock/task.js"></script>
   <script src="app.js"></script>
 </polymer-element>
