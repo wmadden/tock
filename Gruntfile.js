@@ -61,6 +61,7 @@ module.exports = function (grunt) {
                     '.tmp/styles/{,*/}*.css',
                     '.tmp/elements/{,*/}*.js',
                     '.tmp/scripts/{,*/}*.js',
+                    '<%= config.app %>/elements/{,*/}*.html',
                     '<%= config.app %>/{,*/}*.html',
                     '<%= config.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                     '<%= config.app %>/manifest.json',
@@ -169,8 +170,8 @@ module.exports = function (grunt) {
         // Compiles Sass to CSS and generates necessary files if requested
         compass: {
             options: {
-                sassDir: '<%= config.app %>/elements',
-                cssDir: '<%= config.dist %>/elements',
+                sassDir: '<%= config.app %>',
+                cssDir: '<%= config.dist %>',
                 generatedImagesDir: '<%= config.dist %>/images/generated',
                 imagesDir: '<%= config.app %>/images',
                 javascriptsDir: '<%= config.app %>/elements',
@@ -182,14 +183,14 @@ module.exports = function (grunt) {
             },
             server: {
                 options: {
-                    cssDir: '.tmp/styles',
+                    cssDir: '.tmp',
                     generatedImagesDir: '.tmp/images/generated',
                     debugInfo: true
                 }
             },
             chrome: {
                 options: {
-                    cssDir: '<%= config.app %>/elements',
+                    cssDir: '<%= config.app %>',
                     generatedImagesDir: '<%= config.app %>/images/generated',
                     debugInfo: true
                 }
@@ -205,7 +206,7 @@ module.exports = function (grunt) {
 //                ignorePath: '<%= config.app %>/'
             },
             sass: {
-                src: ['<%= config.app %>/elements/{,*/}*.{scss,sass}'],
+                src: ['<%= config.app %>/{,*/}*.{scss,sass}'],
                 ignorePath: '<%= config.app %>/bower_components/'
             }
         },
@@ -228,7 +229,7 @@ module.exports = function (grunt) {
                 assetsDirs: ['<%= config.dist %>', '<%= config.dist %>/images']
             },
             html: ['<%= config.dist %>/{,*/}*.html'],
-            css: ['<%= config.dist %>/styles/{,*/}*.css']
+            css: ['<%= config.dist %>/{,*/}*.css']
         },
 
         // The following *-min tasks produce minified files in the dist folder
@@ -322,8 +323,8 @@ module.exports = function (grunt) {
             styles: {
                 expand: true,
                 dot: true,
-                cwd: '<%= config.app %>/styles',
-                dest: '.tmp/styles/',
+                cwd: '<%= config.app %>',
+                dest: '.tmp/',
                 src: '{,*/}*.css'
             }
         },
