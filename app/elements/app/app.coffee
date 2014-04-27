@@ -1,3 +1,11 @@
 Polymer "tock-app",
-  init: (collection, settings, categories) ->
-    console.log 'Tock!'
+  ready: ->
+    @time = 0
+
+  attached: ->
+    @timerInterval = setInterval( =>
+      @time += 1
+    , 1000)
+
+  detached: ->
+    clearInterval @timerInterval
