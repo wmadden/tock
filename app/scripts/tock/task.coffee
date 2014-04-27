@@ -8,6 +8,9 @@ class tock.Task
     @estimatedPomodoros = parseInt(estimatedPomodoros) || 1
     @totalPomodoros = @pomodorosCompleted
 
+  @from: (object) ->
+    result = new tock.Task(object.description, object.estimatedPomodoros, object.pomodorosCompleted)
+
   startPomodoro: ->
     @startTimer()
     @pomodoroStarted = true
