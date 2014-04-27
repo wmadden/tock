@@ -1,0 +1,19 @@
+<polymer-element name="tock-task-editor"
+    attributes="task">
+  <template>
+    <link href="task-editor.css" rel="stylesheet" type="text/css">
+
+    <div id="tock-task-editor" class="form-inline">
+      <div class="form-group">
+        <label class="sr-only" for="description">Email address</label>
+        <input type="text" class="form-control input-lg" id="description" placeholder="What are you working on?">
+      </div>
+      <div class="form-group">
+        <label class="sr-only" for="estimate">Estimate</label>
+        <input type="number" class="form-control input-lg" id="estimate" placeholder="Est.">
+      </div>
+    </div>
+  </template>
+
+  <script src="task-editor.js"></script>
+</polymer-element>

@@ -1,0 +1,12 @@
+<link rel="import" href="/elements/clockface/clockface.html">
+
+<polymer-element name="tock-task-display"
+                 attributes="task">
+  <template>
+    <link href="task-display.css" rel="stylesheet" type="text/css">
+
+    <tock-clockface time="{{ time }}"></tock-clockface>
+  </template>
+
+  <script src="task-display.js"></script>
+</polymer-element>
