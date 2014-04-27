@@ -1,6 +1,6 @@
 tock = window.tock ?= {}
 
-POMODORO_TIME_IN_MS = 5 * 1000
+POMODORO_TIME_IN_MS = 25 * 60 * 1000
 
 class tock.Task
   constructor: (@description, estimatedPomodoros, @pomodorosCompleted = 0) ->
