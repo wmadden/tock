@@ -1,10 +1,12 @@
 Polymer "tock-clockface",
   time: 0
-  timeChanged: (milliseconds) ->
-    seconds = Math.floor milliseconds / 1000
+  timeChanged: ->
+    seconds = Math.floor @time / 1000
     minutes = Math.floor seconds / 60
     hours = Math.floor seconds / 60
     @formattedTime = "#{ljust(minutes, 2, '0')}:#{ljust(seconds, 2, '0')}"
+    if hours > 0
+      @formattedTime = "#{ljust(hours,2,'0')}:#{formattedTime}"
 
   formattedTime: '00:00'
 

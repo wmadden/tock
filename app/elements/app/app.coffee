@@ -1,7 +1,6 @@
 Polymer "tock-app",
   ready: ->
-    @time = 0
-    @timerState = 'stopped'
+    @resetTimer()
 
   attached: ->
 
@@ -16,13 +15,17 @@ Polymer "tock-app",
       @lastTick = Date.now()
     , 100)
 
-  pauseTimer: ->
+  stopTimer: ->
     clearInterval @timerInterval
     @timerInterval = null
     @timerState = 'stopped'
 
   toggleTimer: ->
     if @timerState == 'started'
-      @pauseTimer()
+      @stopTimer()
     else
       @startTimer()
+
+  resetTimer: ->
+    @stopTimer()
+    @time = 0

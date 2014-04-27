@@ -1,13 +1,20 @@
 <link rel="import" href="/elements/clockface/clockface.html">
+
 <polymer-element name="tock-app">
   <template>
     <link href="app.css" rel="stylesheet" type="text/css">
 
     <div id="tock-app">
       <tock-clockface time="{{ time }}"></tock-clockface>
-      <button id="button" on-click="{{ toggleTimer }}">
+      <button id="startButton" on-click="{{ toggleTimer }}">
         Start/Stop
       </button>
+
+      <button id="resetButton" on-click="{{ resetTimer }}">
+        Reset
+      </button>
+
+      {{ abc }}
     </div>
   </template>
 
