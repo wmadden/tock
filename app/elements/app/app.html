@@ -9,12 +9,24 @@
 
     <div id="tock-app">
       <polymer-ui-pages id="view-switcher" valueattr="id" selected="{{ selectedView }}">
-        <tock-task-display id="taskDisplay" task="{{ currentTask }}">
+        <tock-task-display id="taskDisplay" task="{{ currentTask }}"
+            on-finished="{{ taskDisplay_finished }}">
         </tock-task-display>
 
         <tock-new-task id="newTask" on-start="{{ newTask_onCreate }}">
         </tock-new-task>
       </polymer-ui-pages>
+
+      <ul id="task-list" class="list-group">
+        <template repeat="{{task in pastTasks}}">
+          <li class="list-group-item">
+            {{ task.description }}
+            <span class="pull-right">
+              {{ task.totalPomodoros }} / {{ task.estimatedPomodoros }}
+            </span>
+          </li>
+        </template>
+      </ul>
     </div>
   </template>
 
