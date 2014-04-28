@@ -1,6 +1,10 @@
 Polymer "tock-task-display",
   ready: ->
 
+  taskChanged: (oldValue, newValue) ->
+    oldValue.emitter.removeAllListeners('completed') if oldValue
+    newValue.emitter.on('completed', => @playAlarm()) if newValue
+
   stopPomodoro: ->
     @task.stopPomodoro()
 
@@ -9,3 +13,6 @@ Polymer "tock-task-display",
 
   finishTask:  ->
     @fire('finished', { task: @task })
+
+  playAlarm: ->
+    @$.alarm.play()
