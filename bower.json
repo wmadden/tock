@@ -2,12 +2,13 @@
   "name": "tock",
   "version": "0.0.0",
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.2.3",
-    "bootstrap-sass-official": "~3.1.1+2",
-    "jquery": "~2.1.0",
-    "polymer-elements": "PolymerLabs/polymer-elements#~0.2.3",
-    "polymer-ui-elements": "PolymerLabs/polymer-ui-elements#~0.2.3",
-    "underscore": "~1.6.0"
+    "polymer": "git@github.com:wmadden/polymer.git#master",
+    "bootstrap-sass-official": "~3.1.1",
+    "underscore": "~1.6.0",
+    "eventemitter2": "~0.4.13",
+    "polymer-ui-pages": "Polymer/polymer-ui-pages#~0.2.3",
+    "polymer-selection": "git@github.com:wmadden/polymer-selection.git#master",
+    "polymer-selector": "git@github.com:wmadden/polymer-selector.git#master"
   },
   "devDependencies": {}
 }
