@@ -5,20 +5,28 @@
   <template>
     <link href="task-display.css" rel="stylesheet" type="text/css">
 
-    <div class="description">
-      Description: {{ task.description }}
-    </div>
-    <div class="description">
-      Pomodoro: {{ task.totalPomodoros }} / {{ task.estimatedPomodoros }}
-    </div>
+    <p class="description">
+      {{ task.description }}
+    </p>
 
     <template if="{{ task.pomodoroStarted }}">
       <tock-clockface time="{{ task.timeRemaining }}"></tock-clockface>
-      <button class="btn btn-default" on-click="{{ stopPomodoro }}">Stop pomodoro</button>
+      <p class="pomodoros">
+        {{ task.totalPomodoros }} / {{ task.estimatedPomodoros }} pomodoros
+      </p>
+      <div class="actions">
+        <button class="btn btn-default btn-block" on-click="{{ stopPomodoro }}">Stop pomodoro</button>
+      </div>
     </template>
+
     <template if="{{ !task.pomodoroStarted }}">
-      <button class="btn btn-default" on-click="{{ newPomodoro }}">Start new pomodoro</button>
-      <button class="btn btn-default" on-click="{{ finishTask }}">Done!</button>
+      <p class="pomodoros">
+        {{ task.totalPomodoros }} / {{ task.estimatedPomodoros }} pomodoros
+      </p>
+      <div class="actions">
+        <button class="btn btn-default" on-click="{{ startNewPomodoro }}">Start new pomodoro</button>
+        <button class="btn btn-default" on-click="{{ finishTask }}">Done!</button>
+      </div>
     </template>
   </template>
 

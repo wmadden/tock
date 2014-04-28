@@ -4,15 +4,12 @@
   }
 }
 
+tock-clockface {
+  display: block;
+}
+
 #timer {
-  $height: 100px;
-
-  border: 1px solid black;
-  width: 200px;
-  height: $height;
   text-align: center;
-  line-height: $height;
-
   font-size: 40px;
-  font-family: "Courier New";
+  font-family: 'Helvetica Neue';
 }

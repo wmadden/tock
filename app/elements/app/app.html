@@ -10,7 +10,6 @@
     <div id="tock-app">
       <polymer-ui-pages id="view-switcher" valueattr="id" selected="{{ selectedView }}">
         <div id="taskDisplay" class="panel panel-default">
-          <div class="panel-heading">Current task</div>
           <div class="panel-body">
             <tock-task-display task="{{ currentTask }}"
                                on-finished="{{ taskDisplay_finished }}">
