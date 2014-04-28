@@ -36,7 +36,7 @@ module.exports = function (grunt) {
                 tasks: ['bowerInstall']
             },
             coffee: {
-                files: ['<%= config.app %>/{elements,scripts}/{,*/}*.{coffee,litcoffee,coffee.md}'],
+                files: ['<%= config.app %>/{elements,scripts}/**/*.{coffee,litcoffee,coffee.md}'],
                 tasks: ['coffee:dist'],
                 options: {
                     livereload: true
@@ -46,7 +46,7 @@ module.exports = function (grunt) {
                 files: ['Gruntfile.js']
             },
             styles: {
-                files: ['<%= config.app %>/{elements,styles}/{,*/}*.css'],
+                files: ['<%= config.app %>/{elements,styles}/**/*.css'],
                 tasks: [],
                 options: {
                     livereload: true
@@ -61,7 +61,7 @@ module.exports = function (grunt) {
                     '.tmp/styles/{,*/}*.css',
                     '.tmp/elements/{,*/}*.js',
                     '.tmp/scripts/{,*/}*.js',
-                    '<%= config.app %>/elements/{,*/}*.html',
+                    '<%= config.app %>/{elements,scripts,styles}/**/*',
                     '<%= config.app %>/{,*/}*.html',
                     '<%= config.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                     '<%= config.app %>/manifest.json',
@@ -77,7 +77,7 @@ module.exports = function (grunt) {
                 livereload: 35729,
                 // change this to '0.0.0.0' to access the server from outside
                 hostname: 'localhost',
-                open: true,
+                open: true
             },
             server: {
                 options: {
@@ -125,18 +125,18 @@ module.exports = function (grunt) {
         },
 
         // Make sure code styles are up to par and there are no obvious mistakes
-        jshint: {
-            options: {
-                jshintrc: '.jshintrc',
-                reporter: require('jshint-stylish')
-            },
-            all: [
-                'Gruntfile.js',
-                '<%= config.app %>/{elements,scripts}/{,*/}*.js',
-                '!<%= config.app %>/{elements,scripts}/vendor/*',
-                'test/spec/{,*/}*.js'
-            ]
-        },
+//        jshint: {
+//            options: {
+//                jshintrc: '.jshintrc',
+//                reporter: require('jshint-stylish')
+//            },
+//            all: [
+//                'Gruntfile.js',
+//                '<%= config.app %>/{elements,scripts}/{,*/}*.js',
+//                '!<%= config.app %>/{elements,scripts}/vendor/*',
+//                'test/spec/{,*/}*.js'
+//            ]
+//        },
         jasmine: {
             all: {
                 options: {
@@ -151,7 +151,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= config.app %>',
-                    src: '{elements,scripts}/{,*/}*.{coffee,litcoffee,coffee.md}',
+                    src: '{elements,scripts}/**/*.{coffee,litcoffee,coffee.md}',
                     dest: '.tmp/',
                     ext: '.js'
                 }]
@@ -160,7 +160,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= config.app %>',
-                    src: '{elements,scripts}/{,*/}*.{coffee,litcoffee,coffee.md}',
+                    src: '{elements,scripts}/**/*.{coffee,litcoffee,coffee.md}',
                     dest: '<%= config.app %>/',
                     ext: '.js'
                 }]
@@ -170,8 +170,8 @@ module.exports = function (grunt) {
         // Compiles Sass to CSS and generates necessary files if requested
         compass: {
             options: {
-                sassDir: '<%= config.app %>',
-                cssDir: '<%= config.dist %>',
+                sassDir: '<%= config.app %>/elements',
+                cssDir: '<%= config.dist %>/elements',
                 generatedImagesDir: '<%= config.dist %>/images/generated',
                 imagesDir: '<%= config.app %>/images',
                 javascriptsDir: '<%= config.app %>/elements',
@@ -190,7 +190,6 @@ module.exports = function (grunt) {
             },
             chrome: {
                 options: {
-                    cssDir: '<%= config.app %>',
                     generatedImagesDir: '<%= config.app %>/images/generated',
                     debugInfo: true
                 }
@@ -198,109 +197,6 @@ module.exports = function (grunt) {
             dist: {
             }
         },
-
-        // Automatically inject Bower components into the HTML file
-        bowerInstall: {
-            app: {
-                src: ['<%= config.app %>/index.html']
-//                ignorePath: '<%= config.app %>/'
-            },
-            sass: {
-                src: ['<%= config.app %>/{,*/}*.{scss,sass}'],
-                ignorePath: '<%= config.app %>/bower_components/'
-            }
-        },
-
-        // Reads HTML for usemin blocks to enable smart builds that automatically
-        // concat, minify and revision files. Creates configurations in memory so
-        // additional tasks can operate on them
-        useminPrepare: {
-            options: {
-                dest: '<%= config.dist %>'
-            },
-            html: [
-                '<%= config.app %>/index.html'
-            ]
-        },
-
-        // Performs rewrites based on rev and the useminPrepare configuration
-        usemin: {
-            options: {
-                assetsDirs: ['<%= config.dist %>', '<%= config.dist %>/images']
-            },
-            html: ['<%= config.dist %>/{,*/}*.html'],
-            css: ['<%= config.dist %>/{,*/}*.css']
-        },
-
-        // The following *-min tasks produce minified files in the dist folder
-        imagemin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= config.app %>/images',
-                    src: '{,*/}*.{gif,jpeg,jpg,png}',
-                    dest: '<%= config.dist %>/images'
-                }]
-            }
-        },
-
-        svgmin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= config.app %>/images',
-                    src: '{,*/}*.svg',
-                    dest: '<%= config.dist %>/images'
-                }]
-            }
-        },
-
-        htmlmin: {
-            dist: {
-                options: {
-                    collapseBooleanAttributes: true,
-                    collapseWhitespace: true,
-                    removeAttributeQuotes: true,
-                    removeCommentsFromCDATA: true,
-                    removeEmptyAttributes: true,
-                    removeOptionalTags: true,
-                    removeRedundantAttributes: true,
-                    useShortDoctype: true
-                },
-                files: [{
-                    expand: true,
-                    cwd: '<%= config.dist %>',
-                    src: '{,*/}*.html',
-                    dest: '<%= config.dist %>'
-                }]
-            }
-        },
-
-        // By default, your `index.html`'s <!-- Usemin block --> will take care of
-        // minification. These next options are pre-configured if you do not wish
-        // to use the Usemin blocks.
-        // cssmin: {
-        //     dist: {
-        //         files: {
-        //             '<%= config.dist %>/styles/main.css': [
-        //                 '.tmp/styles/{,*/}*.css',
-        //                 '<%= config.app %>/styles/{,*/}*.css'
-        //             ]
-        //         }
-        //     }
-        // },
-        // uglify: {
-        //     dist: {
-        //         files: {
-        //             '<%= config.dist %>/scripts/scripts.js': [
-        //                 '<%= config.dist %>/scripts/scripts.js'
-        //             ]
-        //         }
-        //     }
-        // },
-        // concat: {
-        //     dist: {}
-        // },
 
         // Copies remaining files to places other tasks can use
         copy: {
@@ -311,12 +207,19 @@ module.exports = function (grunt) {
                     cwd: '<%= config.app %>',
                     dest: '<%= config.dist %>',
                     src: [
+                        // All html, js, css and assets from elements
+                        'elements/**/*.{css,js,html}', 'elements/**/assets/*',
+                        // All bower components' assets (but not source)
+                        'bower_components/**/*.{css,js,html}',
+
                         '*.{ico,png,txt}',
-                        'images/{,*/}*.{webp,gif}',
+                        // All images
+                        'images/**/*',
                         '{,*/}*.html',
-                        'styles/fonts/{,*/}*.*',
-                        '_locales/{,*/}*.json',
-                        'elements/*'
+                        '{,*/}*.js',
+                        'styles/**/*',
+                        'scripts/tock/*.js',
+                        '_locales/{,*/}*.json'
                     ]
                 }]
             },
@@ -339,19 +242,19 @@ module.exports = function (grunt) {
             chrome: [
                 'coffee:dist',
                 'compass:chrome',
-                'copy:styles'
+                'copy:styles',
+//                'vulcanize:dist'
             ],
             dist: [
                 'coffee:dist',
                 'compass:dist',
                 'copy:styles',
-                'imagemin',
-                'svgmin'
+//                'vulcanize:dist'
             ],
             test: [
                 'coffee',
                 'copy:styles'
-            ],
+            ]
         },
 
         // Merge event page, update build number, exclude the debug script
@@ -363,7 +266,8 @@ module.exports = function (grunt) {
                         target: 'scripts/background.js',
                         exclude: [
                             'scripts/chromereload.js'
-                        ]
+                        ],
+                        persistent: true
                     }
                 },
                 src: '<%= config.app %>',
@@ -371,7 +275,7 @@ module.exports = function (grunt) {
             }
         },
 
-        // Compress files in dist to make Chromea Apps package
+        // Compress files in dist to make Chrome Apps package
         compress: {
             dist: {
                 options: {
@@ -384,6 +288,17 @@ module.exports = function (grunt) {
                     dest: ''
                 }]
             }
+        },
+
+        vulcanize: {
+          dist: {
+            options: {
+              csp:      true
+            },
+            files:   {
+              'dist/vulcanized_index.html': ['dist/index.html', 'dist/**/*.html']
+            }
+          }
         }
     });
 
@@ -424,14 +339,10 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'chromeManifest:dist',
-        'useminPrepare',
         'concurrent:dist',
         'concat',
-        'cssmin',
-        'uglify',
         'copy',
-        'usemin',
-        'htmlmin',
+//        'vulcanize:dist',
         'compress'
     ]);
 
