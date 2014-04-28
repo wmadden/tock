@@ -3,12 +3,12 @@ TASK_DISPLAY_VIEW = 'taskDisplay'
 
 Polymer "tock-app",
   ready: ->
-    @pastTasks = @loadPastTasks()# [{ description: 'hello'}]
+    @tasks = @loadTasks()# [{ description: 'hello'}]
     @makeNewTask()
 
   makeNewTask: ->
     @selectedView = NEW_TASK_VIEW
-    @pastTasks.push @currentTask if @currentTask
+    @tasks.push @currentTask if @currentTask
     @currentTask = null
 
   startTask: (task) ->
@@ -17,20 +17,20 @@ Polymer "tock-app",
     @selectedView = TASK_DISPLAY_VIEW
 
   finishTask: (task) ->
-    @pastTasks.unshift task
+    @tasks.unshift task
     @currentTask = null
     @selectedView = NEW_TASK_VIEW
     @save()
 
   # -- Persistence
 
-  loadPastTasks: ->
+  loadTasks: ->
     json = JSON.parse(localStorage.getItem('tasks'))
     return [] unless json
     _(json).map (element) -> tock.Task.from(element)
 
   save: ->
-    localStorage.setItem('tasks', JSON.stringify(@pastTasks))
+    localStorage.setItem('tasks', JSON.stringify(@tasks))
 
   # -- Event listeners --
 
