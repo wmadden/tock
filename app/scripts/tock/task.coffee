@@ -1,6 +1,6 @@
 tock = window.tock ?= {}
 
-POMODORO_TIME_IN_MS = 5000 #25 * 60 * 1000
+POMODORO_TIME_IN_MS = 25 * 60 * 1000
 
 class tock.Task
   @POMODORO_COMPLETE: 'pomodoro-complete'

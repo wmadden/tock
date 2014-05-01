@@ -1,6 +1,6 @@
 tock = window.tock ?= {}
 
-BREAK_LENGTH_IN_MS = 5000 #5 * 60 * 1000
+BREAK_LENGTH_IN_MS = 5 * 60 * 1000
 
 class tock.Break
   @BREAK_START: 'break-start'
