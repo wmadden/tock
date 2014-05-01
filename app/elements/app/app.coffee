@@ -1,5 +1,6 @@
 NEW_TASK_VIEW = 'newTask'
 TASK_DISPLAY_VIEW = 'taskDisplay'
+BREAK_DISPLAY_VIEW = 'breakDisplay'
 
 Polymer "tock-app",
   ready: ->
@@ -30,6 +31,19 @@ Polymer "tock-app",
     @currentTask = null
     @show NEW_TASK_VIEW
     @save()
+
+  startBreak: ->
+    @currentBreak = new tock.Break()
+
+    @currentBreak.emitter.on(tock.Break.BREAK_STOP, => @break_stopOrFinish())
+    @currentBreak.emitter.on(tock.Break.BREAK_COMPLETE, => @break_stopOrFinish())
+
+    @currentBreak.start()
+    @show BREAK_DISPLAY_VIEW
+
+  endBreak: ->
+    @currentBreak = null
+    @show TASK_DISPLAY_VIEW
 
   # -- Audio
 
@@ -84,3 +98,22 @@ Polymer "tock-app",
     chrome.notifications.create('pomodoro-complete', options, ->)
 
     @playAlarm()
+    @startBreak()
+
+  break_stopOrFinish: ->
+    @currentBreak.emitter.removeAllListeners(tock.Break.BREAK_STOP)
+    @currentBreak.emitter.removeAllListeners(tock.Break.BREAK_FINISH)
+
+    options = {
+      type: 'basic',
+      iconUrl: '/images/icon-128.png',
+      title: "Break over",
+      message: 'Ok, back to work.',
+    }
+    chrome.notifications.create('pomodoro-complete', options, ->)
+    @playAlarm()
+
+    @endBreak()
+
+
+

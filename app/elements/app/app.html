@@ -2,6 +2,7 @@
 <link rel="import" href="/bower_components/polymer-ui-pages/polymer-ui-pages.html">
 <link rel="import" href="/elements/new-task/new-task.html">
 <link rel="import" href="/elements/task-display/task-display.html">
+<link rel="import" href="/elements/break-display/break-display.html">
 
 <polymer-element name="tock-app">
   <template>
@@ -24,6 +25,13 @@
             </tock-new-task>
           </div>
         </div>
+
+        <div id="breakDisplay" class="panel panel-default">
+          <div class="panel-body">
+            <tock-break-display break="{{ currentBreak }}">
+            </tock-break-display>
+          </div>
+        </div>
       </polymer-ui-pages>
 
       <ul id="task-list" class="list-group">
@@ -41,5 +49,6 @@
 
   <script src="/bower_components/eventemitter2/lib/eventemitter2.js"></script>
   <script src="/scripts/tock/task.js"></script>
+  <script src="/scripts/tock/break.js"></script>
   <script src="app.js"></script>
 </polymer-element>

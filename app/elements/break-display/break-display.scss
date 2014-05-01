@@ -1,0 +1,22 @@
+@host {
+  :scope {
+    display: block;
+  }
+}
+
+.description, .pomodoros {
+  text-align: center;
+}
+
+.description {
+  font-size: 30px;
+  font-family: 'Open Sans';
+}
+
+.pomodoros {
+  color: #666;
+}
+
+.actions {
+  text-align: center;
+}
