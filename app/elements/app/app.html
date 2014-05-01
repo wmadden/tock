@@ -6,6 +6,7 @@
 <polymer-element name="tock-app">
   <template>
     <link href="app.css" rel="stylesheet" type="text/css">
+    <audio id="alarm" src="assets/alarm.ogg" preload="auto"></audio>
 
     <div id="tock-app">
       <polymer-ui-pages id="view-switcher" valueattr="id" selected="{{ selectedView }}">
