@@ -1,7 +1,6 @@
-@host {
-  :scope {
-    display: block;
-  }
+:host {
+  display: block;
+  color: rgb(66, 189, 66);
 }
 
 .description, .pomodoros {
@@ -13,8 +12,8 @@
   font-family: 'Open Sans';
 }
 
-.pomodoros {
-  color: #666;
+tock-clockface {
+  margin-bottom: 18px;
 }
 
 .actions {
