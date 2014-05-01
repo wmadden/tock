@@ -6,21 +6,35 @@ Polymer "tock-app",
     @loadTasks()# [{ description: 'hello'}]
     @makeNewTask()
 
+  # -- UI
+
+  show: (view) ->
+    @selectedView = view
+
+  # -- Business logic
+
   makeNewTask: ->
-    @selectedView = NEW_TASK_VIEW
+    @show NEW_TASK_VIEW
     @tasks.push @currentTask if @currentTask
     @currentTask = null
 
   startTask: (task) ->
+    task.emitter.on(tock.Task.POMODORO_COMPLETE, => @task_pomodoroComplete()) if task
+
     @currentTask = task
     task.startPomodoro()
-    @selectedView = TASK_DISPLAY_VIEW
+    @show TASK_DISPLAY_VIEW
 
   finishTask: (task) ->
     @tasks.unshift task
     @currentTask = null
-    @selectedView = NEW_TASK_VIEW
+    @show NEW_TASK_VIEW
     @save()
+
+  # -- Audio
+
+  playAlarm: ->
+    @$.alarm.play()
 
   # -- Persistence
 
@@ -48,10 +62,25 @@ Polymer "tock-app",
     else
       localStorage.set key, JSON.stringify(value)
 
-  # -- Event listeners --
+  # -- UI Event listeners --
 
   newTask_onCreate: (event, detail) ->
     @startTask(detail.task)
 
   taskDisplay_finished: (event, detail) ->
     @finishTask(detail.task)
+
+  # -- Model event listeners
+
+  task_pomodoroComplete: ->
+    @currentTask.emitter.removeAllListeners(tock.Task.POMODORO_COMPLETE)
+
+    options = {
+      type: 'basic',
+      iconUrl: '/images/icon-128.png',
+      title: "Pomodoro #{@currentTask.totalPomodoros}/#{@currentTask.estimatedPomodoros} finished!",
+      message: 'Nice work, take a 5 minute break :)',
+    }
+    chrome.notifications.create('pomodoro-complete', options, ->)
+
+    @playAlarm()
