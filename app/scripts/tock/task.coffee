@@ -3,6 +3,10 @@ tock = window.tock ?= {}
 POMODORO_TIME_IN_MS = 5000 #25 * 60 * 1000
 
 class tock.Task
+  @POMODORO_COMPLETE: 'pomodoro-complete'
+  @POMODORO_START: 'pomodoro-start'
+  @POMODORO_STOP: 'pomodoro-stop'
+
   constructor: (@description, estimatedPomodoros, @pomodorosCompleted = 0) ->
     @resetTimer()
     @estimatedPomodoros = parseInt(estimatedPomodoros) || 1
@@ -10,19 +14,19 @@ class tock.Task
     @emitter = new EventEmitter2()
 
   @from: (object) ->
-    result = new tock.Task(object.description, object.estimatedPomodoros, object.pomodorosCompleted)
+    result = new Task(object.description, object.estimatedPomodoros, object.pomodorosCompleted)
 
   startPomodoro: ->
     @startTimer()
     @pomodoroStarted = true
     @updateTotalPomodoros()
-    @emitter.emit('start')
+    @emitter.emit(Task.POMODORO_START)
 
   stopPomodoro: ->
     @pomodoroStarted = false
     @updateTotalPomodoros()
     @resetTimer()
-    @emitter.emit('stop')
+    @emitter.emit(Task.POMODORO_STOP)
 
   updateTotalPomodoros: ->
     @totalPomodoros = @pomodorosCompleted
@@ -41,7 +45,7 @@ class tock.Task
 
       if @timeRemaining == 0
         @pomodorosCompleted += 1
-        @emitter.emit('completed')
+        @emitter.emit(Task.POMODORO_COMPLETE)
         @stopPomodoro()
 
       Platform.flush()
