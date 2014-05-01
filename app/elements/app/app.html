@@ -14,7 +14,7 @@
         <div id="taskDisplay" class="panel panel-default">
           <div class="panel-body">
             <tock-task-display task="{{ currentTask }}"
-                               on-finished="{{ taskDisplay_finished }}">
+                               on-finished="{{ finishTask }}">
             </tock-task-display>
           </div>
         </div>
@@ -28,7 +28,8 @@
 
         <div id="breakDisplay" class="panel panel-default">
           <div class="panel-body">
-            <tock-break-display break="{{ currentBreak }}">
+            <tock-break-display break="{{ currentBreak }}"
+                                on-abort-break="{{ abortBreak }}">
             </tock-break-display>
           </div>
         </div>

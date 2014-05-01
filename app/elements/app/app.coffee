@@ -26,8 +26,8 @@ Polymer "tock-app",
     task.startPomodoro()
     @show TASK_DISPLAY_VIEW
 
-  finishTask: (task) ->
-    @tasks.unshift task
+  finishTask: ->
+    @tasks.unshift @currentTask
     @currentTask = null
     @show NEW_TASK_VIEW
     @save()
@@ -35,11 +35,14 @@ Polymer "tock-app",
   startBreak: ->
     @currentBreak = new tock.Break()
 
-    @currentBreak.emitter.on(tock.Break.BREAK_STOP, => @break_stopOrFinish())
-    @currentBreak.emitter.on(tock.Break.BREAK_COMPLETE, => @break_stopOrFinish())
+    @currentBreak.emitter.on(tock.Break.BREAK_COMPLETE, => @break_finish())
 
     @currentBreak.start()
     @show BREAK_DISPLAY_VIEW
+
+  abortBreak: ->
+    @currentBreak.emitter.removeAllListeners(tock.Break.BREAK_COMPLETE)
+    @endBreak()
 
   endBreak: ->
     @currentBreak = null
@@ -82,7 +85,10 @@ Polymer "tock-app",
     @startTask(detail.task)
 
   taskDisplay_finished: (event, detail) ->
-    @finishTask(detail.task)
+    @finishTask()
+
+  breakDisplay_abortBreak: (event, detail) ->
+    @abortBreak()
 
   # -- Model event listeners
 
@@ -100,9 +106,8 @@ Polymer "tock-app",
     @playAlarm()
     @startBreak()
 
-  break_stopOrFinish: ->
-    @currentBreak.emitter.removeAllListeners(tock.Break.BREAK_STOP)
-    @currentBreak.emitter.removeAllListeners(tock.Break.BREAK_FINISH)
+  break_finish: ->
+    @currentBreak.emitter.removeAllListeners(tock.Break.BREAK_COMPLETE)
 
     options = {
       type: 'basic',
@@ -110,7 +115,7 @@ Polymer "tock-app",
       title: "Break over",
       message: 'Ok, back to work.',
     }
-    chrome.notifications.create('pomodoro-complete', options, ->)
+    chrome.notifications.create('break-complete', options, ->)
     @playAlarm()
 
     @endBreak()
