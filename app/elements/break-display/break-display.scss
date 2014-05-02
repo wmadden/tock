@@ -1,3 +1,5 @@
+@import 'elements/common/variables';
+
 :host {
   display: block;
   color: rgb(66, 189, 66);
@@ -13,7 +15,7 @@
 }
 
 tock-clockface {
-  margin-bottom: 18px;
+  margin-bottom: $default-padding;
 }
 
 .actions {

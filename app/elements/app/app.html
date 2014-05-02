@@ -9,33 +9,21 @@
     <link href="app.css" rel="stylesheet" type="text/css">
     <audio id="alarm" src="assets/alarm.ogg" preload="auto"></audio>
 
-    <div id="tock-app">
-      <polymer-ui-pages id="view-switcher" valueattr="id" selected="{{ selectedView }}">
-        <div id="taskDisplay" class="panel panel-default">
-          <div class="panel-body">
-            <tock-task-display task="{{ currentTask }}"
-                               on-finished="{{ finishTask }}">
-            </tock-task-display>
-          </div>
-        </div>
+    <polymer-ui-pages id="view-switcher" valueattr="id" selected="{{ selectedView }}">
+      <tock-task-display id="taskDisplay" task="{{ currentTask }}"
+                         on-finished="{{ finishTask }}">
+      </tock-task-display>
 
-        <div id="newTask" class="panel panel-default">
-          <div class="panel-body">
-            <tock-new-task on-start="{{ newTask_onCreate }}">
-            </tock-new-task>
-          </div>
-        </div>
+      <tock-new-task id="newTask" on-start="{{ newTask_onCreate }}">
+      </tock-new-task>
 
-        <div id="breakDisplay" class="panel panel-default">
-          <div class="panel-body">
-            <tock-break-display break="{{ currentBreak }}"
-                                on-abort-break="{{ abortBreak }}">
-            </tock-break-display>
-          </div>
-        </div>
-      </polymer-ui-pages>
+      <tock-break-display id="breakDisplay" break="{{ currentBreak }}"
+                          on-abort-break="{{ abortBreak }}">
+      </tock-break-display>
+    </polymer-ui-pages>
 
-      <ul id="task-list" class="list-group">
+    <div id="task-list">
+      <ul class="list-group">
         <template repeat="{{task in tasks}}">
           <li class="list-group-item">
             {{ task.description }}

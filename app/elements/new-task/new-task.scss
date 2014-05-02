@@ -1,5 +1,29 @@
+@import 'elements/common/variables';
+@import 'compass';
+
+#tock-task-editor {
+  @include flexbox((
+    display: flex,
+    flex-direction: row,
+    align-items: center
+  ));
+}
+
+#description-container {
+  @include flexbox((
+    flex: 1 0 auto
+  ));
+  margin-right: $default-padding;
+}
+
+#estimate-container {
+  @include flexbox((
+    flex: 0 0 auto
+  ));
+}
+
 #descriptionInput {
-  width: 364px;
+  width: 100%;
 }
 
 #estimateInput {
