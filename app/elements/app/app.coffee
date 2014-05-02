@@ -101,7 +101,7 @@ Polymer "tock-app",
       title: "Pomodoro #{@currentTask.totalPomodoros}/#{@currentTask.estimatedPomodoros} finished!",
       message: 'Nice work, take a 5 minute break :)',
     }
-    chrome.notifications.create('pomodoro-complete', options, ->)
+    chrome.notifications.create('pomodoro-complete' + Date.now(), options, ->)
 
     @playAlarm()
     @startBreak()
@@ -115,7 +115,7 @@ Polymer "tock-app",
       title: "Break over",
       message: 'Ok, back to work.',
     }
-    chrome.notifications.create('break-complete', options, ->)
+    chrome.notifications.create('break-complete' + Date.now(), options, ->)
     @playAlarm()
 
     @endBreak()
