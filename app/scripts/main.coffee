@@ -3,8 +3,8 @@
 # Listens for the app launching then creates the window
 
 chrome.app.runtime.onLaunched.addListener () ->
-    width = 500
-    height = 300
+    width = 420
+    height = 205
 
     chrome.app.window.create('index.html', {
         id: 'main',
@@ -13,5 +13,7 @@ chrome.app.runtime.onLaunched.addListener () ->
             height: height,
             left: Math.round((screen.availWidth - width) / 2),
             top: Math.round((screen.availHeight - height)/2)
-        }
+        },
+        minWidth: width,
+        minHeight: height,
     })
