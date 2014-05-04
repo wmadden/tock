@@ -66,7 +66,7 @@ Polymer "tock-app",
 
   storageGet: (key, callback) ->
     if chrome
-      chrome.storage.sync.get(key, callback)
+      chrome.storage.local.get(key, callback)
     else
       result = JSON.parse localStorage.getItem(key)
       callback(result)
@@ -75,7 +75,10 @@ Polymer "tock-app",
     if chrome
       obj = {}
       obj[key] = value
-      chrome.storage.sync.set(obj)
+      console.log("chrome.storage.local.set(", obj, ')')
+      chrome.storage.local.set(obj, ->
+        console.log 'local callback, runtime.lastError =', chrome.runtime.lastError if chrome.runtime.lastError
+      )
     else
       localStorage.set key, JSON.stringify(value)
 
