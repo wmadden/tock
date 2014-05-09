@@ -1,0 +1,19 @@
+<polymer-element name="tock-task-list"
+    attributes="tasks canSelect">
+  <template>
+    <link href="task-list.css" rel="stylesheet" type="text/css">
+
+    <ul id="list" class="list-group {{ { 'can-select': canSelect } | tokenList }}">
+      <template repeat="{{task in tasks}}">
+        <li class="list-group-item {{ task.state }}" on-click="{{ task_onClick }}">
+          {{ task.description }}
+            <span class="pull-right">
+              {{ task.totalPomodoros }} / {{ task.estimatedPomodoros }}
+            </span>
+        </li>
+      </template>
+    </ul>
+  </template>
+
+  <script src="task-list.js"></script>
+</polymer-element>
