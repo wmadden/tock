@@ -12,4 +12,4 @@ Polymer "tock-task-list",
     task = sender.templateInstance.model.task
     @fire('trash', { task: task })
 
-  canTrash: (task) -> task.state == tock.Task.FINISHED
+  canTrash: (task) -> true
