@@ -5,7 +5,7 @@ BREAK_DISPLAY_VIEW = 'breakDisplay'
 Polymer "tock-app",
   ready: ->
     @loadTasks()# [{ description: 'hello'}]
-    @makeNewTask()
+    @show NEW_TASK_VIEW
 
   # -- UI
 
@@ -15,16 +15,11 @@ Polymer "tock-app",
   updateCalculatedProperties: ->
     @unfinishedTasks = _(@tasks).filter (task) => task.state != 'finished' && task != @currentTask
     @finishedTasks = _(@tasks).filter (task) -> task.state == 'finished'
+    @save()
 
   # -- Business logic
 
-  makeNewTask: ->
-    @show NEW_TASK_VIEW
-    @tasks.push @currentTask if @currentTask
-    @currentTask = null
-
-  planTask: (task) ->
-    @tasks.push(task)
+  planTask: (task) -> @registerTask(task)
 
   selectTask: (task) ->
     return if @currentTask?.pomodoroStarted
@@ -62,6 +57,10 @@ Polymer "tock-app",
   endBreak: ->
     @currentBreak = null
     @show TASK_DISPLAY_VIEW
+
+  registerTask: (task) ->
+    @tasks.push task
+    @updateCalculatedProperties()
 
   # -- Audio
 
@@ -106,6 +105,7 @@ Polymer "tock-app",
   # -- UI Event listeners --
 
   newTask_onStart: (event, detail) ->
+    @registerTask(detail.task)
     @startTask(detail.task)
 
   newTask_onPlan: (event, detail) ->
@@ -154,6 +154,3 @@ Polymer "tock-app",
     @playAlarm()
 
     @endBreak()
-
-
-

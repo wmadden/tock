@@ -10,7 +10,7 @@ class tock.Task
   @PLANNED: 'planned'
   @FINISHED: 'finished'
 
-  constructor: (@description, estimatedPomodoros, @pomodorosCompleted = 0, @state = Task.FINISHED) ->
+  constructor: (@description, estimatedPomodoros, @pomodorosCompleted = 0, @state = Task.PLANNED) ->
     @resetTimer()
     @estimatedPomodoros = parseInt(estimatedPomodoros) || 1
     @totalPomodoros = @pomodorosCompleted
