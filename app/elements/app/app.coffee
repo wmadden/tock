@@ -12,6 +12,10 @@ Polymer "tock-app",
   show: (view) ->
     @selectedView = view
 
+  updateCalculatedProperties: ->
+    @unfinishedTasks = _(@tasks).filter (task) => task.state != 'finished' && task != @currentTask
+    @finishedTasks = _(@tasks).filter (task) -> task.state == 'finished'
+
   # -- Business logic
 
   makeNewTask: ->
@@ -19,17 +23,28 @@ Polymer "tock-app",
     @tasks.push @currentTask if @currentTask
     @currentTask = null
 
+  planTask: (task) ->
+    @tasks.push(task)
+
+  selectTask: (task) ->
+    return if @currentTask?.pomodoroStarted
+    @currentTask = task
+    if @currentTask
+      @show TASK_DISPLAY_VIEW
+    else
+      @show NEW_TASK_VIEW
+    @updateCalculatedProperties()
+
+  deselectTask: -> @selectTask(null)
+
   startTask: (task) ->
     task.emitter.on(tock.Task.POMODORO_COMPLETE, => @task_pomodoroComplete()) if task
-
-    @currentTask = task
     task.startPomodoro()
-    @show TASK_DISPLAY_VIEW
+    @selectTask(task)
 
   finishTask: ->
-    @tasks.unshift @currentTask
-    @currentTask = null
-    @show NEW_TASK_VIEW
+    @currentTask.state = tock.Task.FINISHED
+    @deselectTask()
     @save()
 
   startBreak: ->
@@ -57,8 +72,14 @@ Polymer "tock-app",
 
   loadTasks: ->
     @storageGet({ tasks: [] }, (value) =>
-      console.log value
-      @tasks = _(value.tasks).map (element) -> tock.Task.from(element)
+      console.log "tasks loaded:", value
+      try
+        tasks = _(value.tasks).compact()
+        @tasks = _(tasks).map (element) -> tock.Task.from(element)
+      catch e
+        console.log 'error while processing:', e
+      console.log "tasks processed:", @tasks
+      @updateCalculatedProperties()
     )
 
   save: ->
@@ -84,14 +105,25 @@ Polymer "tock-app",
 
   # -- UI Event listeners --
 
-  newTask_onCreate: (event, detail) ->
+  newTask_onStart: (event, detail) ->
     @startTask(detail.task)
+
+  newTask_onPlan: (event, detail) ->
+    @planTask(detail.task)
+
+  taskDisplay_stop: (event, detail) ->
+    @deselectTask()
 
   taskDisplay_finished: (event, detail) ->
     @finishTask()
 
   breakDisplay_abortBreak: (event, detail) ->
     @abortBreak()
+
+  unfinishedTaskList_onSelectTask: (event, detail, sender) ->
+    task = detail.task
+    console.log('select task = ', task)
+    @selectTask(task)
 
   # -- Model event listeners
 

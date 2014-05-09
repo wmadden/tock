@@ -8,5 +8,10 @@ Polymer "tock-task-display",
   startNewPomodoro: ->
     @task.startPomodoro()
 
-  finishTask:  ->
+  stopTask: (event) ->
+    event.preventDefault()
+    @fire('stop', { task: @task })
+
+  finishTask: (event) ->
+    event.preventDefault()
     @fire('finished', { task: @task })

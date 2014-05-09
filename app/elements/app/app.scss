@@ -27,23 +27,25 @@
   z-index: 1;
 }
 
-#task-list {
+.task-list {
+
+}
+
+#unfinished-task-list {
+  @include flexbox((
+    flex-grow: 0,
+    flex-shrink: 1,
+    flex-basis: auto
+  ));
+}
+
+#finished-task-list {
+  border-top: 4px solid #d8d8d8;
   @include flexbox((
     flex-grow: 1,
     flex-shrink: 1,
     flex-basis: auto
   ));
-  overflow: auto;
-
-  & > .list-group {
-    margin: 0;
-
-    .list-group-item {
-      border: none;
-      border-bottom: 1px solid #ddd;
-      margin-bottom: 0;
-    }
-  }
 }
 
 polymer-ui-pages {

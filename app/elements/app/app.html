@@ -3,6 +3,7 @@
 <link rel="import" href="/elements/new-task/new-task.html">
 <link rel="import" href="/elements/task-display/task-display.html">
 <link rel="import" href="/elements/break-display/break-display.html">
+<link rel="import" href="/elements/task-list/task-list.html">
 
 <polymer-element name="tock-app">
   <template>
@@ -11,10 +12,13 @@
 
     <polymer-ui-pages id="view-switcher" valueattr="id" selected="{{ selectedView }}">
       <tock-task-display id="taskDisplay" task="{{ currentTask }}"
-                         on-finished="{{ finishTask }}">
+                         on-finished="{{ finishTask }}"
+                         on-stop="{{ taskDisplay_stop }}">
       </tock-task-display>
 
-      <tock-new-task id="newTask" on-start="{{ newTask_onCreate }}">
+      <tock-new-task id="newTask"
+                     on-start="{{ newTask_onStart }}"
+                     on-plan="{{ newTask_onPlan }}">
       </tock-new-task>
 
       <tock-break-display id="breakDisplay" break="{{ currentBreak }}"
@@ -22,18 +26,13 @@
       </tock-break-display>
     </polymer-ui-pages>
 
-    <div id="task-list">
-      <ul class="list-group">
-        <template repeat="{{task in tasks}}">
-          <li class="list-group-item">
-            {{ task.description }}
-            <span class="pull-right">
-              {{ task.totalPomodoros }} / {{ task.estimatedPomodoros }}
-            </span>
-          </li>
-        </template>
-      </ul>
-    </div>
+    <tock-task-list id="unfinished-task-list" tasks="{{ unfinishedTasks }}"
+                    canSelect="{{ !currentTask.pomodoroStarted }}"
+                    on-select="{{ unfinishedTaskList_onSelectTask }}">
+    </tock-task-list>
+    <tock-task-list id="finished-task-list"
+               tasks="{{ finishedTasks }}">
+    </tock-task-list>
   </template>
 
   <script src="/bower_components/eventemitter2/lib/eventemitter2.js"></script>

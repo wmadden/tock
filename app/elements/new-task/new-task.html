@@ -8,16 +8,18 @@
       <div id="tock-task-editor">
         <div id="description-container">
           <label class="sr-only" for="descriptionInput">What are you working on?</label>
-          <input type="text" class="form-control input-lg" id="descriptionInput"
+          <input type="text" class="form-control input-lg" id="descriptionInput" on-keypress="{{ onKeypress }}"
                  placeholder="What are you working on?">
         </div>
         <div id="estimate-container">
           <label class="sr-only" for="estimateInput">Estimate</label>
-          <input type="number" class="form-control input-lg" id="estimateInput" placeholder="Est.">
+          <input type="number" class="form-control input-lg" id="estimateInput" placeholder="Est." on-keypress="{{ onKeypress }}">
         </div>
       </div>
-      <br/>
-      <button class="btn btn-default btn-block btn-primary" on-click="{{ startTask }}">Start</button>
+      <div id="buttons">
+        <button class="btn btn-default" on-click="{{ plan_onClick }}">Plan</button>
+        <button class="btn btn-primary" on-click="{{ start_onClick }}">Start</button>
+      </div>
     </form>
   </template>
 

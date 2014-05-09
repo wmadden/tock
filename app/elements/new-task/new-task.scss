@@ -1,6 +1,9 @@
 @import 'elements/common/variables';
 @import 'compass';
 
+$padding: $default-padding / 2;
+
+
 #tock-task-editor {
   @include flexbox((
     display: flex,
@@ -13,7 +16,7 @@
   @include flexbox((
     flex: 1 0 auto
   ));
-  margin-right: $default-padding;
+  margin-right: $padding;
 }
 
 #estimate-container {
@@ -28,4 +31,26 @@
 
 #estimateInput {
   width: 100px;
+}
+
+#buttons {
+  @include flexbox((
+    display: flex,
+    flex-direction: row,
+    align-items: center
+  ));
+
+  padding-top: $padding;
+
+  button {
+    @include flexbox((
+      flex: 1 0 auto
+    ));
+
+    margin-left: $padding;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
 }
