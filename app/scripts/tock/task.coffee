@@ -7,14 +7,17 @@ class tock.Task
   @POMODORO_START: 'pomodoro-start'
   @POMODORO_STOP: 'pomodoro-stop'
 
-  constructor: (@description, estimatedPomodoros, @pomodorosCompleted = 0) ->
+  @PLANNED: 'planned'
+  @FINISHED: 'finished'
+
+  constructor: (@description, estimatedPomodoros, @pomodorosCompleted = 0, @state = Task.FINISHED) ->
     @resetTimer()
     @estimatedPomodoros = parseInt(estimatedPomodoros) || 1
     @totalPomodoros = @pomodorosCompleted
     @emitter = new EventEmitter2()
 
   @from: (object) ->
-    result = new Task(object.description, object.estimatedPomodoros, object.pomodorosCompleted)
+    new Task(object.description, object.estimatedPomodoros, object.pomodorosCompleted, object.state)
 
   startPomodoro: ->
     @startTimer()
