@@ -209,6 +209,8 @@ module.exports = function (grunt) {
                     src: [
                         // All html, js, css and assets from elements
                         'elements/**/*.{css,js,html}', 'elements/**/assets/*',
+                        // Stupid bootstrap assets
+                        'elements/app/bootstrap/**/*',
                         // All bower components' assets (but not source)
                         'bower_components/**/*.{css,js,html}',
 
