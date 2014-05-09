@@ -30,8 +30,14 @@
                     canSelect="{{ !currentTask.pomodoroStarted }}"
                     on-select="{{ unfinishedTaskList_onSelectTask }}">
     </tock-task-list>
+
+    <div id="divider">
+      Finished:
+    </div>
+
     <tock-task-list id="finished-task-list"
-               tasks="{{ finishedTasks }}">
+               tasks="{{ finishedTasks }}"
+               on-trash="{{ finishedTaskList_onTrash }}">
     </tock-task-list>
   </template>
 

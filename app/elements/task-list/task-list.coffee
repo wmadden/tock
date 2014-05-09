@@ -5,3 +5,11 @@ Polymer "tock-task-list",
     return unless @canSelect
     task = sender.templateInstance.model.task
     @fire('select', { task: task })
+
+  trash_onClick: (event, detail, sender) ->
+    event.preventDefault()
+    event.stopImmediatePropagation()
+    task = sender.templateInstance.model.task
+    @fire('trash', { task: task })
+
+  canTrash: (task) -> task.state == tock.Task.FINISHED

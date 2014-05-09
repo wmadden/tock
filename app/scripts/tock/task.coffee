@@ -17,7 +17,8 @@ class tock.Task
     @emitter = new EventEmitter2()
 
   @from: (object) ->
-    new Task(object.description, object.estimatedPomodoros, object.pomodorosCompleted, object.state)
+    result = new Task(object.description, object.estimatedPomodoros, object.pomodorosCompleted, object.state)
+    _(result).extend _(object).pick('archived')
 
   startPomodoro: ->
     @startTimer()

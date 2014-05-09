@@ -14,7 +14,7 @@ Polymer "tock-app",
 
   updateCalculatedProperties: ->
     @unfinishedTasks = _(@tasks).filter (task) => task.state != 'finished' && task != @currentTask
-    @finishedTasks = _(@tasks).filter (task) -> task.state == 'finished'
+    @finishedTasks = _(@tasks).filter (task) -> task.state == 'finished' && !task.archived
     @save()
 
   # -- Business logic
@@ -60,6 +60,10 @@ Polymer "tock-app",
 
   registerTask: (task) ->
     @tasks.push task
+    @updateCalculatedProperties()
+
+  trashTask: (task) ->
+    task.archived = true
     @updateCalculatedProperties()
 
   # -- Audio
@@ -124,6 +128,11 @@ Polymer "tock-app",
     task = detail.task
     console.log('select task = ', task)
     @selectTask(task)
+
+  finishedTaskList_onTrash: (event, detail, sender) ->
+    task = detail.task
+    console.log('trash task = ', task)
+    @trashTask(task)
 
   # -- Model event listeners
 

@@ -8,6 +8,9 @@
         <li class="list-group-item {{ task.state }}" on-click="{{ task_onClick }}">
           {{ task.description }}
             <span class="pull-right">
+              <template if="{{ task | canTrash }}">
+                <a class="trash" on-click="{{ trash_onClick }}"><i class="glyphicon glyphicon-trash"></i></a>
+              </template>
               {{ task.totalPomodoros }} / {{ task.estimatedPomodoros }}
             </span>
         </li>
