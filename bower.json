@@ -6,7 +6,7 @@
     "bootstrap-sass-official": "~3.1.1",
     "underscore": "~1.6.0",
     "eventemitter2": "~0.4.13",
-    "polymer-ui-pages": "Polymer/polymer-ui-pages#~0.2.3",
+    "polymer-ui-pages": "git@github.com:wmadden/polymer-ui-pages.git#master",
     "polymer-selection": "git@github.com:wmadden/polymer-selection.git#master",
     "polymer-selector": "git@github.com:wmadden/polymer-selector.git#master"
   },
