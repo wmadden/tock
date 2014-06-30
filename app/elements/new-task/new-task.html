@@ -1,4 +1,5 @@
 <link rel="import" href="/elements/task-editor/task-editor.html">
+<link rel="import" href="/elements/bs/bs-button/bs-button.html">
 
 <polymer-element name="tock-new-task">
   <template>
@@ -17,7 +18,7 @@
         </div>
       </div>
       <br/>
-      <button class="btn btn-default btn-block btn-primary" on-click="{{ startTask }}">Start</button>
+      <bs-button class="btn-default btn-block btn-primary" on-click="{{ startTask }}">Start</bs-button>
     </form>
   </template>
 
