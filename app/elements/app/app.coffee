@@ -2,6 +2,8 @@ NEW_TASK_VIEW = 'newTask'
 TASK_DISPLAY_VIEW = 'taskDisplay'
 BREAK_DISPLAY_VIEW = 'breakDisplay'
 
+chromeStorageAvailable = -> chrome?.storage?
+
 Polymer "tock-app",
   ready: ->
     @loadTasks()# [{ description: 'hello'}]
@@ -74,7 +76,7 @@ Polymer "tock-app",
   # -- Persistence
 
   loadTasks: ->
-    @storageGet({ tasks: [] }, (value) =>
+    @storageGet('tasks', [], (value) =>
       console.log "tasks loaded:", value
       try
         tasks = _(value.tasks).compact()
@@ -88,15 +90,26 @@ Polymer "tock-app",
   save: ->
     @storageSet('tasks', @tasks)
 
-  storageGet: (key, callback) ->
-    if chrome
-      chrome.storage.local.get(key, callback)
+  storageGet: (key, defaultValue, callback) ->
+    if chromeStorageAvailable()
+      query = {}
+      query[key] = defaultValue
+      chrome.storage.local.get(query, callback)
     else
-      result = JSON.parse localStorage.getItem(key)
+      result = localStorage.getItem(key)
+      
+      if result
+        try
+          result = JSON.parse(result)
+        catch
+          result = defaultValue
+      else
+        result = defaultValue
+
       callback(result)
 
   storageSet: (key, value) ->
-    if chrome
+    if chromeStorageAvailable()
       obj = {}
       obj[key] = value
       console.log("chrome.storage.local.set(", obj, ')')
@@ -104,7 +117,7 @@ Polymer "tock-app",
         console.log 'local callback, runtime.lastError =', chrome.runtime.lastError if chrome.runtime.lastError
       )
     else
-      localStorage.set key, JSON.stringify(value)
+      localStorage.setItem key, JSON.stringify(value)
 
   # -- UI Event listeners --
 
