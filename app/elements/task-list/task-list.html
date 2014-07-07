@@ -1,3 +1,7 @@
+<link rel="import" href="/bower_components/core-list/core-list.html">
+<link rel="import" href="/bower_components/core-icons/core-icons.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+
 <polymer-element name="tock-task-list"
     attributes="tasks canSelect">
   <template>
@@ -5,17 +9,28 @@
 
     <ul id="list" class="list-group {{ { 'can-select': canSelect } | tokenList }}">
       <template repeat="{{task in tasks}}">
-        <li class="list-group-item {{ task.state }}" on-click="{{ task_onClick }}">
-          {{ task.description }}
-            <span class="pull-right">
-              <template if="{{ task | canTrash }}">
-                <a class="trash" on-click="{{ trash_onClick }}"><i class="glyphicon glyphicon-trash"></i></a>
-              </template>
+        <li class="list-item {{ task.state }}" on-click="{{ task_onClick }}">
+          <span class="description">
+            {{ task.description }}
+          </span>
+
+          <template if="{{ task | canTrash }}">
+            <paper-icon-button icon="delete" class="trash-button"
+              on-click="{{ trash_onClick }}"></paper-icon-button>
+          </template>
+
+          <template if="{{ task.estimatedPomodoros > 1 || task.pomodorosCompleted > 0 }}">
+            <span class="pomodoros">
               {{ task.totalPomodoros }} / {{ task.estimatedPomodoros }}
             </span>
+          </template>
+
+          <paper-ripple></paper-ripple>
         </li>
       </template>
+
     </ul>
+    <paper-shadow z="1"></paper-shadow>
   </template>
 
   <script src="task-list.js"></script>

@@ -1,66 +1,39 @@
 @import 'compass';
-@import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import 'elements/common/variables';
 
 :host {
-  @include flexbox((
-    display: flex,
-    flex-direction: column,
-    align-items: stretch
-  ));
   height: 100%;
   width: 100%;
+  font-family: 'RobotoDraft';
+  color: $secondary-text-color;
+  display: block;
+  @include clearfix;
 }
 
-#view-switcher {
-  @include flexbox((
-    flex-grow: 0,
-    flex-shrink: 0,
-    flex-basis: auto
-  ));
-
-  background-color: #feffff;
-  border-bottom: 1px solid #d8d8d8;
-  border-top: 1px solid #F3F3F3;
-  @include box-shadow(0 2px 2px rgba(0,0,0,0.05));
-  padding: $default-padding;
-  z-index: 1;
+core-animated-pages {
+  height: 100%;
+  width: 100%;
+  display: block;
 }
 
-.task-list {
-
+core-header-panel {
+  /* height: 100% fails here on some browsers */
+  height: 100vh;
+  width: 100vw;
 }
 
-#unfinished-task-list {
-  @include flexbox((
-    flex-grow: 0,
-    flex-shrink: 0,
-    flex-basis: auto
-  ));
+core-toolbar {
+  background-color: $primary-color;
+  color: $secondary-text-color;
+  border-bottom: 1px solid $divider-text-color;
 }
 
-#divider {
-  @include flexbox((
-    flex-grow: 0,
-    flex-shrink: 0,
-    flex-basis: auto
-  ));
-
-  line-height: 20px;
-  height: 21px;
-  font-size: 10px;
-  padding-left: $default-padding;
-  text-transform: uppercase;
-  color: rgb(94, 94, 94);
-  border-bottom: 1px solid #d8d8d8;
+tock-new-task {
+  margin: $default-padding $default-padding 0 $default-padding;
 }
 
-#finished-task-list {
-  @include flexbox((
-    flex-grow: 1,
-    flex-shrink: 1,
-    flex-basis: auto
-  ));
+#body {
+  padding-bottom: $default-padding;
 }
 
 polymer-ui-pages {

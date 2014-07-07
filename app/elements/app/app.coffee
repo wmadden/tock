@@ -1,13 +1,13 @@
-NEW_TASK_VIEW = 'newTask'
-TASK_DISPLAY_VIEW = 'taskDisplay'
-BREAK_DISPLAY_VIEW = 'breakDisplay'
+PLAN_VIEW = 'planView'
+TASK_VIEW = 'taskView'
+BREAK_VIEW = 'breakView'
 
 chromeStorageAvailable = -> chrome?.storage?
 
 Polymer "tock-app",
   ready: ->
     @loadTasks()# [{ description: 'hello'}]
-    @show NEW_TASK_VIEW
+    @show PLAN_VIEW
 
   # -- UI
 
@@ -15,7 +15,7 @@ Polymer "tock-app",
     @selectedView = view
 
   updateCalculatedProperties: ->
-    @unfinishedTasks = _(@tasks).filter (task) => task.state != 'finished' && task != @currentTask
+    @unfinishedTasks = _(@tasks).filter (task) => task.state != 'finished' && !task.archived
     @finishedTasks = _(@tasks).filter (task) -> task.state == 'finished' && !task.archived
     @save()
 
@@ -27,9 +27,9 @@ Polymer "tock-app",
     return if @currentTask?.pomodoroStarted
     @currentTask = task
     if @currentTask
-      @show TASK_DISPLAY_VIEW
+      @show TASK_VIEW
     else
-      @show NEW_TASK_VIEW
+      @show PLAN_VIEW
     @updateCalculatedProperties()
 
   deselectTask: -> @selectTask(null)
@@ -50,7 +50,7 @@ Polymer "tock-app",
     @currentBreak.emitter.on(tock.Break.BREAK_COMPLETE, => @break_finish())
 
     @currentBreak.start()
-    @show BREAK_DISPLAY_VIEW
+    @show BREAK_VIEW
 
   abortBreak: ->
     @currentBreak.emitter.removeAllListeners(tock.Break.BREAK_COMPLETE)
@@ -58,7 +58,7 @@ Polymer "tock-app",
 
   endBreak: ->
     @currentBreak = null
-    @show TASK_DISPLAY_VIEW
+    @show TASK_VIEW
 
   registerTask: (task) ->
     @tasks.push task
@@ -79,12 +79,14 @@ Polymer "tock-app",
     @storageGet('tasks', [], (value) =>
       console.log "tasks loaded:", value
       try
-        tasks = _(value.tasks).compact()
+        tasks = _(value).compact()
         @tasks = _(tasks).map (element) -> tock.Task.from(element)
       catch e
         console.log 'error while processing:', e
       console.log "tasks processed:", @tasks
+
       @updateCalculatedProperties()
+      @save()
     )
 
   save: ->
@@ -94,10 +96,12 @@ Polymer "tock-app",
     if chromeStorageAvailable()
       query = {}
       query[key] = defaultValue
-      chrome.storage.local.get(query, callback)
+      chrome.storage.local.get(query, (result) ->
+        callback(result[key])
+      )
     else
       result = localStorage.getItem(key)
-      
+
       if result
         try
           result = JSON.parse(result)
@@ -142,7 +146,7 @@ Polymer "tock-app",
     console.log('select task = ', task)
     @selectTask(task)
 
-  finishedTaskList_onTrash: (event, detail, sender) ->
+  taskList_onTrash: (event, detail, sender) ->
     task = detail.task
     console.log('trash task = ', task)
     @trashTask(task)

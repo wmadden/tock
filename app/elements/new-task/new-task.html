@@ -1,3 +1,4 @@
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/elements/task-editor/task-editor.html">
 
 <polymer-element name="tock-new-task">
@@ -5,21 +6,22 @@
     <link href="new-task.css" rel="stylesheet" type="text/css">
 
     <form>
-      <div id="tock-task-editor">
-        <div id="description-container">
-          <label class="sr-only" for="descriptionInput">What are you working on?</label>
-          <input type="text" class="form-control input-lg" id="descriptionInput" on-keypress="{{ onKeypress }}"
-                 placeholder="What are you working on?">
-        </div>
-        <div id="estimate-container">
-          <label class="sr-only" for="estimateInput">Estimate</label>
-          <input type="number" class="form-control input-lg" id="estimateInput" placeholder="Est." on-keypress="{{ onKeypress }}">
-        </div>
+      <div id="inputs">
+        <input id="descriptionInput"
+          placeholder="What are you working on?" type="text"
+          on-keypress="{{ onKeypress }}">
+
+        <input id="estimateInput" value="1"
+          placeholder="Estimate" type="number"
+          on-keypress="{{ onKeypress }}">
       </div>
+
       <div id="buttons">
-        <button class="btn btn-default" on-click="{{ plan_onClick }}">Plan</button>
-        <button class="btn btn-primary" on-click="{{ start_onClick }}">Start</button>
+        <paper-button on-click="{{ plan_onClick }}" label="Plan"></paper-button>
+        <paper-button class="start" on-click="{{ start_onClick }}" label="Start"></paper-button>
       </div>
+
+      <paper-shadow z="1"></paper-shadow>
     </form>
   </template>
 

@@ -1,30 +1,46 @@
+@import 'compass';
+@import 'elements/common/variables';
+
 :host {
   display: block;
   overflow: auto;
 }
 
-#list {
+ul {
+  @include no-bullets;
   margin: 0;
-
-  .list-group-item {
-    border: none;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 0;
-    background-color: #fcfcfc;
-  }
-
-  &.can-select .list-group-item {
-    background-color: #feffff;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #fcfcfc;
-    }
-  }
+  padding: 0;
 }
 
-.trash {
-  margin-right: 7px;
-  color: rgb(126, 126, 126);
-  font-size: 12px;
+.list-item {
+  padding: $default-padding;
+  background: white;
+
+  @include flexbox((
+    display: flex,
+    flex-direction: row,
+    align-items: center
+  ));
+
+  & + .list-item {
+    border-top: 1px solid rgba(0,0,0, $divider-text-opacity);
+  }
+
+  paper-ripple {
+    color: $accent-color-light;
+  }
+
+  .description {
+    @include flexbox((
+      flex: 1 0 auto
+    ));
+  }
+
+  .trash-button, .pomodoros {
+    @include flexbox((
+      flex: 0 0 auto
+    ));
+    color: $secondary-text-color;
+    fill: $secondary-text-color;
+  }
 }

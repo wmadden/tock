@@ -1,34 +1,42 @@
 <link rel="import" href="/elements/clockface/clockface.html">
+<link rel="import" href="/bower_components/core-icon/core-icon.html">
+<link rel="import" href="/bower_components/core-icons/core-icons.html">
+<link rel="import" href="/bower_components/core-icons/iconsets/av-icons.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 
 <polymer-element name="tock-task-display"
                  attributes="task">
   <template>
     <link href="task-display.css" rel="stylesheet" type="text/css">
 
-    <p class="description">
-      {{ task.description }}
-    </p>
+    <div id="container" class="{{ { 'running': running } | tokenList }}">
+      <div class="spacer"></div>
 
-    <template if="{{ task.pomodoroStarted }}">
+      <div class="description">
+        <div class="content">{{ task.description }}</div>
+      </div>
+
+      <div class="spacer"></div>
+
       <tock-clockface time="{{ task.timeRemaining }}"></tock-clockface>
-      <p class="pomodoros">
-        {{ task.totalPomodoros }} / {{ task.estimatedPomodoros }} pomodoros
-      </p>
-      <div class="actions">
-        <button class="btn btn-default btn-block" on-click="{{ stopPomodoro }}">Stop pomodoro</button>
-      </div>
-    </template>
 
-    <template if="{{ !task.pomodoroStarted }}">
       <p class="pomodoros">
         {{ task.totalPomodoros }} / {{ task.estimatedPomodoros }} pomodoros
       </p>
+
       <div class="actions">
-        <button class="btn btn-default" on-click="{{ startNewPomodoro }}">New pomodoro</button>
-        <button class="btn btn-default" on-click="{{ stopTask }}">Done</button>
-        <button class="btn btn-default" on-click="{{ finishTask }}">Finished!</button>
+        <paper-icon-button icon="arrow-back" on-click="{{ stopTask }}"></paper-icon-button>
+
+        <template if="{{ task.pomodoroStarted }}">
+          <paper-icon-button icon="av:pause" on-click="{{ stopPomodoro }}"></paper-icon-button>
+        </template>
+        <template if="{{ !task.pomodoroStarted }}">
+          <paper-icon-button icon="av:play-arrow" on-click="{{ startNewPomodoro }}"></paper-icon-button>
+        </template>
+
+        <paper-icon-button icon="done" on-click="{{ finishTask }}"></paper-icon-button>
       </div>
-    </template>
+    </div>
   </template>
 
   <script src="/bower_components/underscore/underscore.js"></script>

@@ -3,54 +3,65 @@
 
 $padding: $default-padding / 2;
 
+:host {
+  display: block;
+  background: $foreground-color;
+}
 
-#tock-task-editor {
+input {
+  font-size: 150%;
+  border: none;
+  @include box-sizing('border-box');
+  padding: 0.6em;
+  color: $primary-text-color;
+}
+
+// TODO: on large devices display it all on one line
+
+#inputs {
+  @include box-sizing('border-box');
   @include flexbox((
     display: flex,
     flex-direction: row,
     align-items: center
   ));
-}
 
-#description-container {
-  @include flexbox((
-    flex: 1 0 auto
-  ));
-  margin-right: $padding;
-}
-
-#estimate-container {
-  @include flexbox((
-    flex: 0 0 auto
-  ));
+  border-bottom: 1px solid $divider-text-color;
 }
 
 #descriptionInput {
-  width: 100%;
+  @include flexbox((
+    flex: 1 0 auto
+  ));
+  min-width: 0;
 }
 
 #estimateInput {
-  width: 100px;
+  width: 75px;
+  @include flexbox((
+    flex: 0 0 auto
+  ));
+  text-align: right;
+  color: $hint-text-color;
+
+  &:focus {
+    color: $primary-text-color;
+  }
 }
 
 #buttons {
-  @include flexbox((
-    display: flex,
-    flex-direction: row,
-    align-items: center
-  ));
+  padding: 0.2em;
+}
 
-  padding-top: $padding;
+paper-button {
+  background: white;
+  padding: 0.4em;
 
-  button {
-    @include flexbox((
-      flex: 1 0 auto
-    ));
-
-    margin-left: $padding;
-
-    &:first-child {
-      margin-left: 0;
-    }
+  &::shadow #ripple {
+    color: $accent-color;
   }
+}
+
+.paper-shadow {
+  pointer-events: none;
 }

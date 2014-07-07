@@ -2,12 +2,12 @@
   "name": "tock",
   "version": "0.0.0",
   "dependencies": {
-    "polymer": "git@github.com:wmadden/polymer.git#master",
     "underscore": "~1.6.0",
     "eventemitter2": "~0.4.13",
-    "polymer-ui-pages": "Polymer/polymer-ui-pages#~0.2.3",
-    "polymer-selection": "git@github.com:wmadden/polymer-selection.git#master",
-    "polymer-selector": "git@github.com:wmadden/polymer-selector.git#master"
+    "polymer": "Polymer/polymer#master",
+    "core-elements": "Polymer/core-elements#master",
+    "paper-elements": "Polymer/paper-elements#master",
+    "core-animated-pages": "polymer/core-animated-pages#~0.3.3"
   },
   "devDependencies": {}
 }

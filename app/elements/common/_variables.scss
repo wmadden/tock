@@ -1,1 +1,22 @@
 $default-padding: 18px;
+
+$primary-color: #ffeb3b;
+$primary-color-light: #fff9c4;
+$primary-color-dark: #fbc02d;
+
+$accent-color: #03a9f4;
+$accent-color-light: #b3e5fc;
+$accent-color-dark: #0288d1;
+
+$primary-text-opacity: 0.87;
+$secondary-text-opacity: 0.54;
+$hint-text-opacity: 0.26;
+$divider-text-opacity: 0.12;
+
+$primary-text-color: rgba(0,0,0, $primary-text-opacity);
+$secondary-text-color: rgba(0,0,0, $secondary-text-opacity);
+$hint-text-color: rgba(0,0,0, $hint-text-opacity);
+$divider-text-color: rgba(0,0,0, $divider-text-opacity);
+
+$background-color: #f5f5f5;
+$foreground-color: white;
