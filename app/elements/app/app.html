@@ -1,15 +1,13 @@
 <!-- Library imports -->
-<link rel="import" href="/bower_components/polymer/polymer.html">
-<link rel="import" href="/bower_components/font-roboto/roboto.html">
-<link rel="import" href="/bower_components/core-elements/core-elements.html">
-<link rel="import" href="/bower_components/polymer-ui-pages/polymer-ui-pages.html">
-<link rel="import" href="/bower_components/core-animated-pages/core-animated-pages.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-elements/core-elements.html">
+<link rel="import" href="../../bower_components/polymer-ui-pages/polymer-ui-pages.html">
+<link rel="import" href="../../bower_components/core-animated-pages/core-animated-pages.html">
 
-
-<link rel="import" href="/elements/new-task/new-task.html">
-<link rel="import" href="/elements/task-display/task-display.html">
-<link rel="import" href="/elements/break-display/break-display.html">
-<link rel="import" href="/elements/task-list/task-list.html">
+<link rel="import" href="../new-task/new-task.html">
+<link rel="import" href="../task-display/task-display.html">
+<link rel="import" href="../break-display/break-display.html">
+<link rel="import" href="../task-list/task-list.html">
 
 <polymer-element name="tock-app">
   <template>
@@ -40,18 +38,22 @@
       <tock-task-display id="taskView"
         task="{{ currentTask }}"
         on-finished="{{ finishTask }}"
-        on-stop="{{ taskDisplay_stop }}"></tock-task-display>
+        on-stop="{{ taskDisplay_stop }}">
+      </tock-task-display>
 
-      <div id="breakView"></div>
-
+      <tock-break-display id="breakView"
+                          break="{{ currentBreak }}"
+                          on-finish-task="{{ breakDisplay_finishTask }}"
+                          on-abort-break="{{ abortBreak }}">
+      </tock-break-display>
     </core-animated-pages>
 
     <link href="app.css" rel="stylesheet" type="text/css">
     <audio id="alarm" src="assets/alarm.ogg" preload="auto"></audio>
   </template>
 
-  <script src="/bower_components/eventemitter2/lib/eventemitter2.js"></script>
-  <script src="/scripts/tock/task.js"></script>
-  <script src="/scripts/tock/break.js"></script>
+  <script src="../../bower_components/eventemitter2/lib/eventemitter2.js"></script>
+  <script src="../../scripts/tock/task.js"></script>
+  <script src="../../scripts/tock/break.js"></script>
   <script src="app.js"></script>
 </polymer-element>

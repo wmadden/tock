@@ -1,8 +1,28 @@
+@import 'compass';
 @import 'elements/common/variables';
 
 :host {
   display: block;
-  color: rgb(66, 189, 66);
+}
+
+#container {
+@include transition(background-color 0.35s ease);
+  @include flexbox((
+    display: flex,
+    flex-direction: column,
+    align-items: center,
+    justify-content: center,
+    align-content: space-between
+  ));
+
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  &.running {
+    background: #5DDF51;
+    color: rgba(255,255,255,$primary-text-opacity);
+  }
 }
 
 .description, .pomodoros {
@@ -10,14 +30,38 @@
 }
 
 .description {
-  font-size: 30px;
-  // font-family: 'Open Sans';
+  @include flexbox((
+    flex: 0 0 auto
+  ));
+  font-size: 200%;
 }
 
-tock-clockface {
-  margin-bottom: $default-padding;
+.spacer {
+  @include flexbox((
+    flex: 1 0 auto
+  ));
+}
+
+.pomodoros {
+  color: rgba(255,255,255,$hint-text-opacity);
 }
 
 .actions {
   text-align: center;
+}
+
+paper-icon-button {
+  fill: $secondary-text-color--overDark;
+}
+
+tock-clockface {
+  display: none;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  margin-top: -41px;
+}
+
+.running tock-clockface {
+  display: block;
 }

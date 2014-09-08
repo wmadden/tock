@@ -1,21 +1,35 @@
-<link rel="import" href="/elements/clockface/clockface.html">
+<link rel="import" href="../clockface/clockface.html">
 
 <polymer-element name="tock-break-display"
                  attributes="break">
   <template>
     <link href="break-display.css" rel="stylesheet" type="text/css">
 
-    <p class="description">
-      On break :)
-    </p>
+    <div id="container" class="{{ { 'running': break.timeRemaining > 0 } | tokenList }}">
+      <div class="spacer"></div>
 
-    <tock-clockface time="{{ break.timeRemaining }}"></tock-clockface>
+      <div class="description">
+        <div class="content">On break :)</div>
+      </div>
 
-    <div class="actions">
-      <button class="btn btn-default btn-block" on-click="{{ stopBreak }}">Stop break</button>
+      <div class="spacer"></div>
+
+      <tock-clockface time="{{ break.timeRemaining }}"></tock-clockface>
+
+      <p class="pomodoros">
+        <!--{{ task.totalPomodoros }} / {{ task.estimatedPomodoros }} pomodoros-->
+      </p>
+
+      <div class="actions">
+         <!--<paper-icon-button icon="arrow-back" on-click="{{ stopTask }}"></paper-icon-button>-->
+
+        <paper-icon-button icon="av:stop" on-click="{{ stopBreak }}"></paper-icon-button>
+
+        <paper-icon-button icon="done" on-click="{{ finishTask }}"></paper-icon-button>
+      </div>
     </div>
   </template>
 
-  <script src="/bower_components/underscore/underscore.js"></script>
+  <script src="../../bower_components/underscore/underscore.js"></script>
   <script src="break-display.js"></script>
 </polymer-element>

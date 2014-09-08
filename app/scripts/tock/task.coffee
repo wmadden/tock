@@ -49,8 +49,8 @@ class tock.Task
 
       if @timeRemaining == 0
         @pomodorosCompleted += 1
-        @emitter.emit(Task.POMODORO_COMPLETE)
         @stopPomodoro()
+        @emitter.emit(Task.POMODORO_COMPLETE)
 
       Platform.flush()
     , 100)

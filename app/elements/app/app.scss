@@ -1,10 +1,17 @@
 @import 'compass';
 @import 'elements/common/variables';
 
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Regular'), local('Roboto-Regular'), url("./assets/Roboto.woff") format('woff');
+}
+
 :host {
   height: 100%;
   width: 100%;
-  font-family: 'RobotoDraft';
+  font-family: 'Roboto', 'Open Sans', 'Helvetica', 'Verdana';
   color: $secondary-text-color;
   display: block;
   @include clearfix;

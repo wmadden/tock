@@ -14,7 +14,9 @@ $hint-text-opacity: 0.26;
 $divider-text-opacity: 0.12;
 
 $primary-text-color: rgba(0,0,0, $primary-text-opacity);
+$primary-text-color--overDark: rgba(255,255,255, $primary-text-opacity);
 $secondary-text-color: rgba(0,0,0, $secondary-text-opacity);
+$secondary-text-color--overDark: rgba(255,255,255, $secondary-text-opacity);
 $hint-text-color: rgba(0,0,0, $hint-text-opacity);
 $divider-text-color: rgba(0,0,0, $divider-text-opacity);
 

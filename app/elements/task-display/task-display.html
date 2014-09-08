@@ -1,15 +1,15 @@
-<link rel="import" href="/elements/clockface/clockface.html">
-<link rel="import" href="/bower_components/core-icon/core-icon.html">
-<link rel="import" href="/bower_components/core-icons/core-icons.html">
-<link rel="import" href="/bower_components/core-icons/iconsets/av-icons.html">
-<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../clockface/clockface.html">
+<link rel="import" href="../../bower_components/core-icon/core-icon.html">
+<link rel="import" href="../../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../../bower_components/core-icons/iconsets/av-icons.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 
 <polymer-element name="tock-task-display"
                  attributes="task">
   <template>
     <link href="task-display.css" rel="stylesheet" type="text/css">
 
-    <div id="container" class="{{ { 'running': running } | tokenList }}">
+    <div id="container" class="{{ { 'running': task.pomodoroStarted } | tokenList }}">
       <div class="spacer"></div>
 
       <div class="description">
@@ -39,6 +39,6 @@
     </div>
   </template>
 
-  <script src="/bower_components/underscore/underscore.js"></script>
+  <script src="../../bower_components/underscore/underscore.js"></script>
   <script src="task-display.js"></script>
 </polymer-element>

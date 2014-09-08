@@ -6,6 +6,7 @@
 }
 
 #container {
+@include transition(background-color 0.35s ease);
   @include flexbox((
     display: flex,
     flex-direction: column,

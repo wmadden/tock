@@ -27,15 +27,16 @@ Polymer "tock-app",
     return if @currentTask?.pomodoroStarted
     @currentTask = task
     if @currentTask
+      task.emitter.on(tock.Task.POMODORO_COMPLETE, => @task_pomodoroComplete()) if task
       @show TASK_VIEW
     else
+      @currentTask.emitter.removeAllListeners(tock.Task.POMODORO_COMPLETE)
       @show PLAN_VIEW
     @updateCalculatedProperties()
 
   deselectTask: -> @selectTask(null)
 
   startTask: (task) ->
-    task.emitter.on(tock.Task.POMODORO_COMPLETE, => @task_pomodoroComplete()) if task
     task.startPomodoro()
     @selectTask(task)
 
@@ -43,6 +44,7 @@ Polymer "tock-app",
     @currentTask.state = tock.Task.FINISHED
     @deselectTask()
     @save()
+    @startBreak()
 
   startBreak: ->
     @currentBreak = new tock.Break()
@@ -141,6 +143,9 @@ Polymer "tock-app",
   breakDisplay_abortBreak: (event, detail) ->
     @abortBreak()
 
+  breakDisplay_finishTask: (event, detail) ->
+    @finishTask()
+
   unfinishedTaskList_onSelectTask: (event, detail, sender) ->
     task = detail.task
     console.log('select task = ', task)
@@ -154,7 +159,7 @@ Polymer "tock-app",
   # -- Model event listeners
 
   task_pomodoroComplete: ->
-    @currentTask.emitter.removeAllListeners(tock.Task.POMODORO_COMPLETE)
+    console.log('pomodoro complete')
 
     options = {
       type: 'basic',
@@ -162,7 +167,7 @@ Polymer "tock-app",
       title: "Pomodoro #{@currentTask.totalPomodoros}/#{@currentTask.estimatedPomodoros} finished!",
       message: 'Nice work, take a 5 minute break :)',
     }
-    chrome.notifications.create('pomodoro-complete' + Date.now(), options, ->)
+    chrome?.notifications?.create('pomodoro-complete' + Date.now(), options, ->)
 
     @playAlarm()
     @startBreak()
